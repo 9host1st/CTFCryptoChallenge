@@ -1,0 +1,19 @@
+import base64
+from Crypto.Cipher import Blowfish
+cipher = base64.b64decode("J8LFHyoEuoo=")
+decrypt = "QUJDREVGR0g="
+for i in range(1,256):
+    for j in range(1,256):
+        for k in range(1,256):
+            for l in range(1,256):
+                K1 = b"\x9e\x91\x9b\xb3\x3a\xef" + bytes(chr(i)+ chr(j), "utf-8")
+                K2 = bytes(chr(k)) + bytes(chr(l)) + b"\xf6\xea\x6d\x93\x7f\x22"
+                C1 = Blowfish.new(K1, Blowfish.MODE_ECB)
+                C2 = Blowfish.new(K2, Blowfish.MODE_ECB)
+                D2 = C1.decrypt(c)
+                D1 = C2.decrypt(D2)
+                plaintext = base64.b64encode(D1)
+                if(plaintext == decrypt):
+                    print("K1 : " + K1)
+                    print("K2 : " + K2)
+
